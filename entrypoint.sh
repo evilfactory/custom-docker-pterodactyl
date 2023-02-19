@@ -79,6 +79,28 @@ else
     echo -e "Not updating game server as auto update was set to 0. Starting Server"
 fi
 
+rm luacsforbarotrauma_patch_linux_server.zip
+wget https://github.com/evilfactory/LuaCsForBarotrauma/releases/download/latest/luacsforbarotrauma_patch_linux_server.zip -O luacsforbarotrauma_patch_linux_server.zip
+unzip -o luacsforbarotrauma_patch_linux_server.zip
+
+pterodactylfix=" LuaUserData.RegisterType('System.Console')
+local Console = LuaUserData.CreateStatic('System.Console')
+Hook.Patch('System.Console', 'get_IsOutputRedirected', function(self, ptable)
+    ptable.PreventExecution = true
+        return true
+end)
+Hook.Patch('System.Console', 'get_IsInputRedirected', function(self, ptable)
+        ptable.PreventExecution = false
+        return true
+end)
+Hook.Add('think', 'ConsoleInput', function()
+    if Console.KeyAvailable then
+                Game.ExecuteCommand(Console.ReadLine())
+    end
+end)"
+
+echo "$pterodactylfix" >> Lua/ModLoader.lua
+
 # Replace Startup Variables
 MODIFIED_STARTUP=$(echo ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g')
 echo -e ":/home/container$ ${MODIFIED_STARTUP}"
