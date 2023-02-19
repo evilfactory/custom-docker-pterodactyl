@@ -20,7 +20,7 @@
 # SOFTWARE.
 #
 
-FROM        --platform=$TARGETOS/$TARGETARCH ubuntu:focal
+FROM        --platform=linux/amd64 ubuntu:focal
 
 LABEL       author="oliver194" maintainer="100048880+oliver194@users.noreply.github.com"
 
