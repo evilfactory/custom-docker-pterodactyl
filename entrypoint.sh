@@ -105,5 +105,7 @@ echo "$pterodactylfix" >> Lua/ModLoader.lua
 MODIFIED_STARTUP=$(echo ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g')
 echo -e ":/home/container$ ${MODIFIED_STARTUP}"
 
+touch custom_script.sh
+
 # Run the Server
 eval ${MODIFIED_STARTUP}
