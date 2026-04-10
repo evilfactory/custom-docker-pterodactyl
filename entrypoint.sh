@@ -99,7 +99,7 @@ Hook.Add('think', 'ConsoleInput', function()
     end
 end)"
 
-echo "$pterodactylfix" >> Lua/ModLoader.lua
+echo "$pterodactylfix" >> LocalMods/LuaCsForBarotrauma/Lua/LuaSetup.lua
 
 # Replace Startup Variables
 MODIFIED_STARTUP=$(echo ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g')
